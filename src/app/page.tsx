@@ -1,6 +1,7 @@
 import { Section } from "@/components/section";
 import { ForceGraph, type GNode, type GLink } from "@/components/force-graph";
 import { LiveQuery } from "@/components/live-query";
+import { CaseStudies } from "@/components/case-studies";
 
 const metrics = [
   { n: "5.8", label: "agents at once", src: "paxel" },
@@ -224,6 +225,17 @@ export default function Home() {
         </p>
         <div className="mt-6">
           <LiveQuery />
+        </div>
+      </Section>
+
+      {/* The method, applied: abstracted engagements, public-safe */}
+      <Section label="the method, applied">
+        <p className="font-serif text-base leading-relaxed text-muted">
+          the same method, across very different problems. client names withheld;
+          the work is described by its class and its ontology move.
+        </p>
+        <div className="mt-7">
+          <CaseStudies />
         </div>
       </Section>
     </main>

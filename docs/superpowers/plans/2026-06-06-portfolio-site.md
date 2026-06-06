@@ -101,7 +101,7 @@
 - [ ] Step 2: Verify desktop + mobile; reading measure capped; ledger rail correct.
 - [ ] Step 3: Commit.
 
-### Task 7: The method, applied (3 abstracted case studies)
+### Task 7: The method, applied (3 abstracted case studies) ✅ DONE
 
 **Files:** Create `src/components/case-studies.tsx`; modify `page.tsx`.
 

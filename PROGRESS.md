@@ -53,10 +53,19 @@ Plan and spec are the source of truth. R10 (deploy) is out of autonomous scope.
   decompose), evidence numbers verbatim from content/methodology.md, ledger layout
   intact, no em dashes, no client names. Verified (13 entries render), build clean.
 
+- **Task 7 — 3 abstracted case studies** ✅ (`src/components/case-studies.tsx`).
+  An agent-callable archive, a source-cited content pipeline, a regulatory-
+  intelligence product. Each: generic title, what it is, the ontology core move,
+  status. Re-identification check passed (sector+geo+size stripped for all three);
+  zero client names in rendered text (verified). Build clean. NOTE: currently
+  mounted after Falsafa; Task 8 must fix the full section order to match DESIGN.md
+  (hero → how-i-build → hinge → method-applied → falsafa → recognition → writing →
+  about → contact).
+
 ## Next
 
-- Task 7 (3 abstracted case studies), Task 8 (Falsafa/Recognition/Writing/About/
-  Contact). Then Chunk 4 (Tasks 9,10), Chunk 5 (Tasks 11,12).
+- Task 8 (Falsafa framing + Recognition + Writing + About + Contact, and fix the
+  section order). Then Chunk 4 (Tasks 9,10), Chunk 5 (Tasks 11,12).
 
 ## Decisions / notes for Adnan
 
