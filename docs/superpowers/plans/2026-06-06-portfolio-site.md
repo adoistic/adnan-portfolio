@@ -121,7 +121,7 @@
 
 ## Chunk 4: Provenance + command palette — R6, R7
 
-### Task 9: Self-citation provenance popovers
+### Task 9: Self-citation provenance popovers ✅ DONE
 
 **Files:** Create `src/components/provenance.tsx` (client); modify hero metrics + case studies to wrap `[src:]` tags.
 

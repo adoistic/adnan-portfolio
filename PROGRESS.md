@@ -72,11 +72,18 @@ Plan and spec are the source of truth. R10 (deploy) is out of autonomous scope.
   byok.tsx, safe-text.tsx) contain em dashes in UI strings — flagged for the
   Task 11/12 polish pass to strip (your no-em-dash rule).
 
+- **Task 9 — provenance popovers** ✅ (`src/components/provenance.tsx`). Accessible
+  self-citation popover on the hero metrics: works via hover, keyboard focus
+  (aria-expanded, Escape), and tap; text-only. Tags relabeled `[src: local session
+  analysis]` / `[src: git history]`; internal "paxel" not shipped; no client
+  identifiers. Reduced-motion safe. Verified, build clean. (Preview serverId is now
+  12ca33ea — use preview_list each iteration.)
+
 ## Next
 
-- Chunk 4: Task 9 (provenance popovers + relabel [src:] tags), Task 10 (Cmd-K
-  palette + g graph nav). Chunk 5: Task 11 (all responsive tiers + em-dash polish),
-  Task 12 (final review + finalize PROGRESS).
+- Task 10 (dep-free Cmd-K command palette + g graph nav). Chunk 5: Task 11 (all
+  responsive tiers + strip em dashes from interactive components), Task 12 (final
+  review + finalize PROGRESS).
 
 ## Decisions / notes for Adnan
 

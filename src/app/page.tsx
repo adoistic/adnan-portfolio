@@ -5,12 +5,22 @@ import { CaseStudies } from "@/components/case-studies";
 import { Recognition } from "@/components/recognition";
 import { Writing } from "@/components/writing";
 import { About } from "@/components/about";
+import { Provenance } from "@/components/provenance";
+
+const SRC_SESSION = {
+  label: "local session analysis",
+  source: "From a local analysis of my own coding sessions.",
+};
+const SRC_GIT = {
+  label: "git history",
+  source: "From my git commit history since 2024.",
+};
 
 const metrics = [
-  { n: "5.8", label: "agents at once", src: "paxel" },
-  { n: "38", label: "peak parallel", src: "paxel" },
-  { n: "604K", label: "net lines / 2024", src: "git" },
-  { n: "80%", label: "AI-coauthored", src: "git" },
+  { n: "5.8", label: "agents at once", src: SRC_SESSION },
+  { n: "38", label: "peak parallel", src: SRC_SESSION },
+  { n: "604K", label: "net lines / 2024", src: SRC_GIT },
+  { n: "80%", label: "AI-coauthored", src: SRC_GIT },
 ];
 
 const log = [
@@ -183,7 +193,7 @@ export default function Home() {
                   </dd>
                   <dt className="mt-2 font-mono text-[11px] uppercase tracking-wider text-muted">
                     {m.label}
-                    <span className="text-line"> [src:{m.src}]</span>
+                    <Provenance label={m.src.label} source={m.src.source} />
                   </dt>
                 </div>
               ))}
