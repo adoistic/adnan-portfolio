@@ -87,17 +87,20 @@ Ships in v1. Ported from Falsafa's proven, tested BYOK island
   search tool calls are answered by our KEYLESS `/api/query` route
   (`onToolCall` → `fetch('/api/query')` → `search()`). The key never appears in
   any request to this site's own origin; `/api/query` never sees it.
-- **Stack:** Vercel AI SDK (`ai` + an OpenAI-compatible provider) `streamText`
-  against OpenRouter with `HTTP-Referer`/`X-Title` set to this site, a tool-loop
-  step cap (~50), streaming output. NEW DEPENDENCIES — requires Adnan's
-  npm-install approval before R3 starts.
-- **Reuse from Falsafa** (port, trim to OpenRouter): `providers/openai.ts`
-  (openrouter path + `inferBaseURL`), `state.ts` (the SETUP→streaming state
-  machine), `storage.ts`, `models.ts` (OpenRouter model list), `types.ts`, and
-  the UI (`KeyInput`, `ModelPicker`, `QuestionInput`, `StreamingOutput`,
-  `ToolCallCard`, `MarkdownView` + `defensive-linkify`, `ErrorBanner`). Adapt
-  `browserTools`/`browserCorpus` so the search tool calls our `/api/query`
-  instead of fetching corpus assets in-browser.
+- **Stack (DEPENDENCY-FREE, for autonomy):** hand-rolled `fetch` streaming to
+  OpenRouter's `chat/completions` (SSE), not the Vercel AI SDK. This avoids any
+  npm-install approval gate while the run is autonomous. `HTTP-Referer`/`X-Title`
+  set to this site; tool-loop round cap ~10; streaming output. No new
+  dependencies. (If Adnan later prefers the AI SDK, it can replace the hand-rolled
+  client behind the same interface.)
+- **Learn from Falsafa, do not import it:** read `providers/openai.ts` (the
+  OpenRouter request shape + headers), `state.ts` (the SETUP→streaming flow),
+  `storage.ts` (localStorage key handling), and `MarkdownView.tsx` (the
+  escape-then-render *security posture*) for behavior, but reimplement small,
+  dep-free equivalents in React. Do NOT copy `marked`, `marked-footnote`, Preact,
+  or `defensive-linkify` (Falsafa-corpus-specific, ~8 MB index). The model's
+  search tool calls are answered by our keyless `/api/query`, not an in-browser
+  corpus fetch.
 - Default state is keyless cited search; reasoning is opt-in (the visitor adds a
   key). Provider picker is OpenRouter-only.
 
@@ -168,11 +171,15 @@ non-negotiables kept hard.
   path so the key and the `Authorization` header are never logged; surface only
   the provider's own error text. No third-party error reporting or analytics on
   the BYOK path.
-- **Rendering (Falsafa MarkdownView pattern):** model output and corpus passages
-  are HTML-escaped first (raw `<script>` becomes literal text), then rendered;
-  `defensive-linkify` repairs passage-id leaks. The `dangerouslySetInnerHTML` in
-  the ported `MarkdownView` operates only on escaped, structured output, never on
-  raw untrusted HTML. Keyless passages render as plain text.
+- **Rendering (dep-free, safest):** model output and corpus passages render as
+  React TEXT NODES only. NO `dangerouslySetInnerHTML` anywhere, no HTML parsing,
+  no `marked`. The only allowed transforms are inert: newline→line break, and
+  `[src:id]` citations into inert styled `<span>`s. Because no links or HTML are
+  rendered, `javascript:`/`data:` hrefs, event-handler attributes, and `<script>`
+  are structurally impossible to execute, not merely escaped. Acceptance: a
+  passage or model chunk containing `<script>alert(1)</script>` and
+  `[x](javascript:alert(1))` renders as literal visible text with nothing
+  clickable and no execution.
 - **CSP (non-negotiable):** ship a Content-Security-Policy with
   `connect-src 'self' https://openrouter.ai`, `script-src 'self'`, so an injected
   script cannot exfiltrate the key or anything else to a third party.
@@ -206,9 +213,9 @@ non-negotiables kept hard.
 ## Remaining work (the plan will decompose)
 
 R1 live-query server route (keyless, bounds per F2). R2 live-query terminal UI
-(text-only rendering). R3 BYOK reasoning ported from Falsafa's island
-(OpenRouter-only, under the full Security contract; needs dep approval first).
-R4 wire real content into how-i-build + exactly 3
+(text-only rendering). R3 BYOK reasoning, dep-free hand-rolled OpenRouter
+streaming modeled on Falsafa's island (OpenRouter-only, under the full Security
+contract; no new dependency). R4 wire real content into how-i-build + exactly 3
 abstracted case studies (each: what it is, the ontology core applied, status;
 re-identification-checked; definition of done = renders faithfully at all tiers
 with passing sweep). R5 Falsafa, Recognition (EV, MSME, Cobden-Bright,
