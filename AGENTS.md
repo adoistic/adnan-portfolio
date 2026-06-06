@@ -6,7 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # adnan-portfolio
 
-Adnan Abbasi's method-led personal site. Next.js 15 + TypeScript + Tailwind + shadcn/ui.
+Adnan Abbasi's method-led personal site. Next.js 16 + React 19 + TypeScript + Tailwind v4. shadcn/ui is not required for v1 (primitives are hand-built); adopt later only if the component surface grows.
 
 ## Design system
 
@@ -28,5 +28,6 @@ Every viewport is a designed tier, never a shrunk desktop. See the responsive se
 
 ## Stack notes
 
-- App Router. A server route proxies Falsafa's search for the live cited-query feature; the API key stays server-side and never reaches the client bundle.
-- Knowledge-graph hero via a force-directed lib; command palette via cmdk.
+- App Router. A keyless server route runs the bundled Falsafa librarian for the live cited-query feature; the 621 KB corpus stays server-side, off the client bundle. v1 is keyless (no API key anywhere). BYOK reasoning is deferred to v1.1 under the Security contract in the site spec.
+- Knowledge-graph hero is dependency-free (hand-rolled force simulation); command palette is hand-rolled too (cmdk only if a dependency is approved).
+- Full implementation spec: docs/superpowers/specs/2026-06-06-portfolio-site-design.md.

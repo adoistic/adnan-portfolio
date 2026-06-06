@@ -95,4 +95,5 @@ Per-element treatment:
 | 2026-06-06 | Direction B: dark technical logbook, restraint-as-flex | Chosen from 3 directions; serves the "level you can't fathom, shown not told" north star |
 | 2026-06-06 | Wilder features: live Falsafa query + self-citation + knowledge-graph hero, nerdy-not-artsy | Awwwards-caliber craft expressed computationally, on-thesis with the data-ontology work |
 | 2026-06-06 | Every viewport a designed tier, no compromise | Explicit requirement; signature elements get per-tier treatments, not shrinks |
-| 2026-06-06 | Separate public repo, Next.js 15 + TS + Tailwind + shadcn | Real deployable interactive app with a live server endpoint; matches Adnan's stack |
+| 2026-06-06 | Separate public repo, Next.js 16 + React 19 + TS + Tailwind v4 | Real deployable interactive app; scaffold is Next 16 / Tailwind v4. shadcn not required for v1 (hand-built primitives). |
+| 2026-06-06 | BYOK reasoning deferred to v1.1; v1 live query is keyless | Spec review: BYOK is the only secret-leak surface; keyless cited search already shows the method on the page |
