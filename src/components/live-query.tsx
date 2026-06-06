@@ -1,6 +1,12 @@
 "use client";
 
-import { useId, useState } from "react";
+import { lazy, Suspense, useId, useState } from "react";
+
+// Lazy: the BYOK panel (and the OpenRouter client it pulls in) only loads when
+// the visitor opts in. Default state stays keyless cited search.
+const Byok = lazy(() =>
+  import("@/components/byok").then((m) => ({ default: m.Byok })),
+);
 
 type Hit = {
   text: string;
@@ -23,6 +29,7 @@ export function LiveQuery() {
   const inputId = useId();
   const [query, setQuery] = useState("");
   const [state, setState] = useState<State>({ status: "idle" });
+  const [byokOpen, setByokOpen] = useState(false);
 
   async function run() {
     const q = query.trim();
@@ -135,6 +142,36 @@ export function LiveQuery() {
               </li>
             ))}
           </ul>
+        )}
+      </div>
+
+      <div className="mt-5 border-t border-line pt-4">
+        <button
+          type="button"
+          onClick={() => setByokOpen((v) => !v)}
+          aria-expanded={byokOpen}
+          className="font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-accent focus:text-accent focus:outline-none"
+        >
+          <span className="text-line">{byokOpen ? "− " : "+ "}</span>
+          reason over these with your own OpenRouter key
+        </button>
+
+        {byokOpen && (
+          <>
+            <p className="mt-2 font-mono text-[10px] leading-relaxed text-muted/80">
+              your key is sent only to OpenRouter, stored locally in your
+              browser, and never to this site.
+            </p>
+            <Suspense
+              fallback={
+                <p className="mt-3 font-mono text-xs text-muted">
+                  <span className="text-accent">// </span>loading…
+                </p>
+              }
+            >
+              <Byok />
+            </Suspense>
+          </>
         )}
       </div>
     </div>

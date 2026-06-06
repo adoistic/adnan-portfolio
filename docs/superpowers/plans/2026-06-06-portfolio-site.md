@@ -74,7 +74,7 @@
 - [ ] Step 2: Verify the site still loads, fonts render, the keyless live query still works, no CSP violations in console.
 - [ ] Step 3: Commit.
 
-### Task 5: BYOK panel + tool loop + key storage (DEP-FREE)
+### Task 5: BYOK panel + tool loop + key storage (DEP-FREE) ✅ DONE
 
 **Files:**
 - Create: `src/components/byok.tsx` (client), `src/lib/key-store.ts` (localStorage read/set/clear, SSR-safe), `src/components/safe-text.tsx` (dep-free safe renderer — NOT a markdown lib)

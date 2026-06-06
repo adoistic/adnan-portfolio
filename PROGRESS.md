@@ -34,10 +34,24 @@ Plan and spec are the source of truth. R10 (deploy) is out of autonomous scope.
   streams SSE, yields text/tool_call/done/error, never parses `[DONE]`, never
   throws, never logs the key. 2/2 node --test pass, build clean.
 
+- **Task 5 — BYOK reasoning (dep-free)** ✅. `key-store.ts` (localStorage,
+  SSR-safe), `safe-text.tsx` + pure `safe-text-model.ts` (text-nodes-only, inert:
+  `<script>`/`javascript:` render as literal text), `byok.tsx` (password key +
+  forget, model select, question, capped-10 tool loop calling keyless `/api/query`,
+  streams via openrouter.ts, failure-path banner, abort). Opt-in toggle in
+  live-query.tsx. **Security VERIFIED:** the key is passed only to
+  `streamOpenRouter` (code line 164); the only origin fetch is keyless `/api/query`
+  (live fetch-spy test: that request carried no key / no Authorization); no key
+  logging. 15/15 tests pass, build clean, no console errors.
+  **Note for Adnan:** the live OpenRouter streaming UX was not exercised against a
+  real key (none available; I won't use yours). It's unit-tested + code-verified;
+  do one real "ask" with your OpenRouter key to confirm the answer streams nicely.
+
 ## Next
 
-- Task 5 (BYOK panel + tool loop + `safe-text.tsx` + `key-store.ts`), then content
-  (Chunk 3: Tasks 6,7,8), Chunk 4 (9,10), Chunk 5 (11,12).
+- Chunk 3 content: Task 6 (wire how-i-build from content/methodology.md), Task 7
+  (3 abstracted case studies), Task 8 (Falsafa/Recognition/Writing/About/Contact).
+  Then Chunk 4 (Tasks 9,10), Chunk 5 (Tasks 11,12).
 
 ## Decisions / notes for Adnan
 

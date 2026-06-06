@@ -33,12 +33,29 @@ const X_TITLE = "Adnan Abbasi";
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 
+/**
+ * An assistant tool-call entry, as it must be echoed back to OpenRouter in the
+ * assistant message that requested the tool. The follow-up `tool`-role message
+ * references this by `tool_call_id`.
+ */
+export type ToolCall = {
+  id: string;
+  type: "function";
+  function: { name: string; arguments: string };
+};
+
 /** OpenAI-compatible chat message. */
 export type ChatMessage = {
   role: "system" | "user" | "assistant" | "tool";
   content: string;
   tool_call_id?: string;
   name?: string;
+  /**
+   * Present only on an assistant message that requested tool calls. Carried
+   * back verbatim in the next request so the model sees its own tool turn.
+   * Erasable optional field; does not change streaming behavior.
+   */
+  tool_calls?: ToolCall[];
 };
 
 /** OpenAI function-tool definition (the shape OpenRouter accepts in `tools`). */
