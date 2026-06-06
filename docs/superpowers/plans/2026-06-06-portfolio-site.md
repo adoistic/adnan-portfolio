@@ -93,7 +93,7 @@
 
 > Source: `content/methodology.md` (public draft) + public facts from the spec. Abstract all client work. Run the confidentiality sweep before committing. Relabel `[src:paxel]`→"local session analysis", `[src:git]`→"git history" while here.
 
-### Task 6: Wire "how I build" from content
+### Task 6: Wire "how I build" from content ✅ DONE
 
 **Files:** Modify `src/app/page.tsx`; maybe add `src/lib/content.ts` to read `content/methodology.md` at build (server component) and extract the principle list.
 

@@ -47,11 +47,16 @@ Plan and spec are the source of truth. R10 (deploy) is out of autonomous scope.
   real key (none available; I won't use yours). It's unit-tested + code-verified;
   do one real "ask" with your OpenRouter key to confirm the answer streams nicely.
 
+- **Task 6 — how-i-build content** ✅. Replaced the 3-entry skeleton with all 13
+  Part-1 principles (spec-first, the swarm, parallelism, outside voice, data
+  ontology, ground truth, verify, benchmark, reverse, codify, memory, velocity,
+  decompose), evidence numbers verbatim from content/methodology.md, ledger layout
+  intact, no em dashes, no client names. Verified (13 entries render), build clean.
+
 ## Next
 
-- Chunk 3 content: Task 6 (wire how-i-build from content/methodology.md), Task 7
-  (3 abstracted case studies), Task 8 (Falsafa/Recognition/Writing/About/Contact).
-  Then Chunk 4 (Tasks 9,10), Chunk 5 (Tasks 11,12).
+- Task 7 (3 abstracted case studies), Task 8 (Falsafa/Recognition/Writing/About/
+  Contact). Then Chunk 4 (Tasks 9,10), Chunk 5 (Tasks 11,12).
 
 ## Decisions / notes for Adnan
 

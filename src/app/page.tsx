@@ -13,17 +13,67 @@ const log = [
   {
     t: "spec-first",
     title: "The spec is the real work.",
-    note: "A loose idea becomes a dated spec, then a bite-sized plan. When the spec is right the code is boring; when it is vague, more hands just produce more wrong, faster.",
+    note: "One client build's whole approved contract was a single agents-api.md, accepted with no redlines. When the spec is right the code almost writes itself; when it is vague, more hands just produce more wrong, faster.",
   },
   {
     t: "the swarm",
     title: "A fresh agent per task, two review gates.",
-    note: "Spec-compliance first, then code quality. The gates catch different failures, so I run several threads at once, about 5.8 on average.",
+    note: "Spec-compliance first, then code quality. On one pipeline the two gates caught a tautological test, a precision mismatch, a Unicode leak, a missing boot-time secret check, and a number serialized as a string. Different bugs, which is the point.",
+  },
+  {
+    t: "parallelism",
+    title: "Concurrency is a resource with hard edges.",
+    note: "About 5.8 agents open at once on average, 38 at peak, two or more active 52% of the time. A 25-way fan-out failed on platform limits and got rebatched to 11; one redirect pulled 886 raw records, 833 applied.",
+  },
+  {
+    t: "outside voice",
+    title: "Plan, review, ship, with a second model.",
+    note: "An adversarial reviewer flagged, before any code, fields the schema lacked, a route collision, a bad auth assumption, and a backfill keyed on the wrong id. When a deploy returned 500s I pasted the real logs and overrode its wrong diagnosis.",
+  },
+  {
+    t: "data ontology",
+    title: "The core discipline, not a feature.",
+    note: "Messy corpus to typed schemas, entity resolution, and a citation graph. One product runs no model of its own: it exposes search plus an MCP endpoint and the user brings their AI. A standing rule: the model extracts, Python counts and validates.",
   },
   {
     t: "ground truth",
     title: "Distrust the reported state.",
-    note: "Of 1,842 classified decisions, 48% were course-corrections and 17% were catching the agent's mistake. I check the system of record, not the claim.",
+    note: "Of 1,842 classified decisions, 48% were course-corrections and 17% were catching the agent's mistake. I curled the real routes with a fake key injected to confirm it never leaked, rather than accept a passed browser QA.",
+  },
+  {
+    t: "verify",
+    title: "Verify by building, then by looking.",
+    note: "A live-fire run on 1,340 real feed signals exposed baseline-only output and sparse citations the unit tests passed clean over. I have rejected generated art by eye and regenerated backgrounds at portrait 896x1200.",
+  },
+  {
+    t: "benchmark",
+    title: "Prove the method small before scaling.",
+    note: "Sample documents, land the schema as a PR, run a five-document bake-off, iterate the prompt, run a nine-document benchmark, then release the larger wave. The bake-off is cheap and the full run is not.",
+  },
+  {
+    t: "reverse",
+    title: "Undo your own over-engineering.",
+    note: "I adopted a heavy two-phase structured drafter to suppress AI writing tells, watched the prose regress, and dropped the structured mode while keeping the useful prompting. Reverting a thing I just built is part of the method.",
+  },
+  {
+    t: "codify",
+    title: "Write down every lesson so it cannot recur.",
+    note: "Transient-error handling became a required rule in the project's CLAUDE.md. A one-off stub-file fix became a template default. Verify hard, cut scope cleanly, then institutionalize the lesson.",
+  },
+  {
+    t: "memory",
+    title: "The skill library is the reusable unit.",
+    note: "Layered memory plus a growing library of specs and skills carries context across sessions. I turned one pipeline into a downloadable authoring skill with a self-contained schema doc and pure-stdlib scripts. The library regenerates products.",
+  },
+  {
+    t: "velocity",
+    title: "Speed is a go-to-market weapon.",
+    note: "I replaced a clunky file-and-PDF handoff with a live dashboard and seeded demo data, and made reports a non-technical owner can audit by clicking the evidence. For a buyer I get one meeting with, I arrive with a finished working demo.",
+  },
+  {
+    t: "decompose",
+    title: "Discipline lives in the spec and the gates.",
+    note: "Front-load one prescriptive prompt with the exact files, test shape, verification commands, and a stop condition, then delegate to fresh subagents under review. Commit hygiene is policy: named-file staging, no blanket git add, a leak-guard that once caught internal paths heading into a public dashboard.",
   },
 ];
 
@@ -149,7 +199,7 @@ export default function Home() {
         </p>
       </div>
 
-      {/* How I build (skeleton — wired to content later) */}
+      {/* How I build: the spine, from content/methodology.md Part 1 */}
       <Section label="how i build">
         <ul className="space-y-7">
           {log.map((e) => (
@@ -166,7 +216,7 @@ export default function Home() {
         </ul>
       </Section>
 
-      {/* Falsafa — the method demonstrating itself, live */}
+      {/* Falsafa: the method demonstrating itself, live */}
       <Section label="falsafa">
         <p className="font-serif text-base leading-relaxed text-muted">
           a real query against a corpus of world philosophy. the librarian
