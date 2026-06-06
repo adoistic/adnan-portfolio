@@ -1,5 +1,6 @@
 import { Section } from "@/components/section";
 import { ForceGraph, type GNode, type GLink } from "@/components/force-graph";
+import { LiveQuery } from "@/components/live-query";
 
 const metrics = [
   { n: "5.8", label: "agents at once", src: "paxel" },
@@ -163,6 +164,17 @@ export default function Home() {
             </li>
           ))}
         </ul>
+      </Section>
+
+      {/* Falsafa — the method demonstrating itself, live */}
+      <Section label="falsafa">
+        <p className="font-serif text-base leading-relaxed text-muted">
+          a real query against a corpus of world philosophy. the librarian
+          retrieves and cites; no model, no key, no hallucination.
+        </p>
+        <div className="mt-6">
+          <LiveQuery />
+        </div>
       </Section>
     </main>
   );

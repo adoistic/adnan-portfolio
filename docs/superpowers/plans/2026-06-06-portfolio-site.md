@@ -36,7 +36,7 @@
 - [ ] Step 3: Confirm the 621 KB corpus is NOT in the client bundle (grep `.next` client chunks for a distinctive passage string; it should appear only in server output). It is only imported by the route.
 - [ ] Step 4: Commit.
 
-### Task 2: Live terminal UI
+### Task 2: Live terminal UI ✅ DONE
 
 **Files:**
 - Create: `src/components/live-query.tsx` (client)

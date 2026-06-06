@@ -12,10 +12,15 @@ Plan and spec are the source of truth. R10 (deploy) is out of autonomous scope.
   k fixed at 3 server-side, 400 on empty/too-long/malformed JSON, runtime nodejs,
   corpus stays server-only. Verified via curl ("freedom of thought" → Fichte;
   empty/long/malformed → 400). Build clean.
+- **Task 2 — live terminal UI** ✅ (`src/components/live-query.tsx`, mounted in a
+  new `falsafa` section). Keyless: type a query → real cited passages render
+  (text-only, no dangerouslySetInnerHTML); loading/empty/error states; aria-live;
+  keyboard. Verified in preview ("the duty of a king" → Comte's Traité, 3
+  citations). Build clean, no console errors.
 
 ## Next
 
-- Task 2 — live terminal UI (`live-query.tsx`), then Chunk 2 (CSP + BYOK), etc.
+- Chunk 2: Task 4 (CSP header) then Task 5 (dep-free BYOK), then content (Chunk 3).
 
 ## Decisions / notes for Adnan
 
