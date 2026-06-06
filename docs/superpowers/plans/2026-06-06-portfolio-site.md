@@ -25,7 +25,7 @@
 
 ## Chunk 1: Live query (keyless) — R1, R2
 
-### Task 1: `/api/query` keyless route
+### Task 1: `/api/query` keyless route ✅ DONE
 
 **Files:**
 - Create: `src/app/api/query/route.ts`
