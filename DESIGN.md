@@ -96,4 +96,4 @@ Per-element treatment:
 | 2026-06-06 | Wilder features: live Falsafa query + self-citation + knowledge-graph hero, nerdy-not-artsy | Awwwards-caliber craft expressed computationally, on-thesis with the data-ontology work |
 | 2026-06-06 | Every viewport a designed tier, no compromise | Explicit requirement; signature elements get per-tier treatments, not shrinks |
 | 2026-06-06 | Separate public repo, Next.js 16 + React 19 + TS + Tailwind v4 | Real deployable interactive app; scaffold is Next 16 / Tailwind v4. shadcn not required for v1 (hand-built primitives). |
-| 2026-06-06 | BYOK reasoning deferred to v1.1; v1 live query is keyless | Spec review: BYOK is the only secret-leak surface; keyless cited search already shows the method on the page |
+| 2026-06-06 | BYOK reasoning in v1, ported from Falsafa's BYOK island (OpenRouter-only) | Adnan: copy Falsafa's proven, tested practices rather than build from zero. Key stays browser→OpenRouter; /api/query keyless. See site spec Security section. |

@@ -28,6 +28,6 @@ Every viewport is a designed tier, never a shrunk desktop. See the responsive se
 
 ## Stack notes
 
-- App Router. A keyless server route runs the bundled Falsafa librarian for the live cited-query feature; the 621 KB corpus stays server-side, off the client bundle. v1 is keyless (no API key anywhere). BYOK reasoning is deferred to v1.1 under the Security contract in the site spec.
+- App Router. A keyless server route runs the bundled Falsafa librarian for the live cited-query feature; the 621 KB corpus stays server-side, off the client bundle. The default path is keyless. Optional BYOK reasoning (v1) is ported from Falsafa's BYOK island, OpenRouter-only: the visitor's key rides only on a browser→openrouter.ai request and never touches our origin; /api/query stays keyless. Follow the Security section of the site spec exactly.
 - Knowledge-graph hero is dependency-free (hand-rolled force simulation); command palette is hand-rolled too (cmdk only if a dependency is approved).
 - Full implementation spec: docs/superpowers/specs/2026-06-06-portfolio-site-design.md.

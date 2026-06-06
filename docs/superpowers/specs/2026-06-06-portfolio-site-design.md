@@ -76,13 +76,30 @@ Keyless TF-IDF librarian over a bundled curated corpus
   author, chapter, the passage, and a `[src:]` citation). Keyboard-first,
   accessible. Passages render as TEXT ONLY (no `dangerouslySetInnerHTML`).
 
-### F2b. BYOK reasoning — DEFERRED to v1.1 (security-gated)
+### F2b. BYOK reasoning (v1) — ported from Falsafa
 
-Per the spec review, the optional "reason over the passages with your own
-OpenRouter key" layer is deferred out of v1: it is the only secret-handling
-surface on a public site, and the keyless cited search already demonstrates the
-method on the page. When built, it MUST meet the contract in the Security
-section below; until then it is not implemented and no key input ships.
+Ships in v1. Ported from Falsafa's proven, tested BYOK island
+(`/Users/siraj/falsafa/apps/site/src/islands/byok/`), scoped to OpenRouter only
+(Adnan: "only OpenRouter"). Do not rebuild from zero; copy and adapt.
+
+- **Trust boundary (testable):** the model request carrying the visitor's key is
+  made from the BROWSER directly to `https://openrouter.ai/api/v1`. The model's
+  search tool calls are answered by our KEYLESS `/api/query` route
+  (`onToolCall` → `fetch('/api/query')` → `search()`). The key never appears in
+  any request to this site's own origin; `/api/query` never sees it.
+- **Stack:** Vercel AI SDK (`ai` + an OpenAI-compatible provider) `streamText`
+  against OpenRouter with `HTTP-Referer`/`X-Title` set to this site, a tool-loop
+  step cap (~50), streaming output. NEW DEPENDENCIES — requires Adnan's
+  npm-install approval before R3 starts.
+- **Reuse from Falsafa** (port, trim to OpenRouter): `providers/openai.ts`
+  (openrouter path + `inferBaseURL`), `state.ts` (the SETUP→streaming state
+  machine), `storage.ts`, `models.ts` (OpenRouter model list), `types.ts`, and
+  the UI (`KeyInput`, `ModelPicker`, `QuestionInput`, `StreamingOutput`,
+  `ToolCallCard`, `MarkdownView` + `defensive-linkify`, `ErrorBanner`). Adapt
+  `browserTools`/`browserCorpus` so the search tool calls our `/api/query`
+  instead of fetching corpus assets in-browser.
+- Default state is keyless cited search; reasoning is opt-in (the visitor adds a
+  key). Provider picker is OpenRouter-only.
 
 ### F3. The site cites itself
 
@@ -133,23 +150,32 @@ verified in the preview before its task is marked done.
 
 ## Security
 
-- **BYOK trust boundary (for v1.1, when built):** the visitor's OpenRouter key
-  is used ONLY in a browser-originated request directly to `openrouter.ai`. It is
-  never included in any request to this site's own origin. The `/api/query`
-  route is keyless and never sees the key.
-- **Key handling controls (v1.1):** held in component memory only, never in
-  `localStorage`/`sessionStorage`, never in a URL or query string; input is
-  `type=password`, `autocomplete="off"`, outside any URL-serializing form;
-  cleared on unmount. No logging of the key, the `Authorization` header, or the
-  request config; no third-party error reporting or telemetry on the BYOK path.
-  The request payload to OpenRouter is exactly {model, the retrieved passages,
-  the question}; nothing else.
-- **Rendering (applies to v1 keyless too):** corpus passages and any future model
-  output render as TEXT, never via `dangerouslySetInnerHTML`. An injection in a
-  passage or model response must not be able to execute.
-- **CSP:** ship a Content-Security-Policy that restricts `connect-src` to `'self'`
-  plus `openrouter.ai` (added in v1.1), and `script-src 'self'`, so an injected
-  script cannot exfiltrate anything to a third party.
+Aligned to Falsafa's shipped BYOK practices (the thing we are copying), with the
+non-negotiables kept hard.
+
+- **Trust boundary (testable, non-negotiable):** the key rides ONLY on a
+  browser-originated request to `https://openrouter.ai/api/v1`. It is never in
+  any request to this site's own origin; `/api/query` is keyless. Acceptance:
+  inspect network in the preview, confirm no request to our origin carries an
+  `Authorization` header or the key string.
+- **Key persistence (Falsafa-aligned, with the tradeoff stated):** the key is
+  stored in `localStorage` like Falsafa (deliberate, for reload persistence),
+  entered via an `input type=password` with `autocomplete="off"`, never placed in
+  a URL or query string, and clearable by the visitor (a "forget key" control).
+  Tradeoff accepted and documented: an XSS could read `localStorage`, which the
+  CSP and escaped rendering below exist to prevent. It is the visitor's own key.
+- **No key in logs (non-negotiable):** audit every ported `console.*` and error
+  path so the key and the `Authorization` header are never logged; surface only
+  the provider's own error text. No third-party error reporting or analytics on
+  the BYOK path.
+- **Rendering (Falsafa MarkdownView pattern):** model output and corpus passages
+  are HTML-escaped first (raw `<script>` becomes literal text), then rendered;
+  `defensive-linkify` repairs passage-id leaks. The `dangerouslySetInnerHTML` in
+  the ported `MarkdownView` operates only on escaped, structured output, never on
+  raw untrusted HTML. Keyless passages render as plain text.
+- **CSP (non-negotiable):** ship a Content-Security-Policy with
+  `connect-src 'self' https://openrouter.ai`, `script-src 'self'`, so an injected
+  script cannot exfiltrate the key or anything else to a third party.
 
 ## Tech approach
 
@@ -180,7 +206,9 @@ verified in the preview before its task is marked done.
 ## Remaining work (the plan will decompose)
 
 R1 live-query server route (keyless, bounds per F2). R2 live-query terminal UI
-(text-only rendering). R4 wire real content into how-i-build + exactly 3
+(text-only rendering). R3 BYOK reasoning ported from Falsafa's island
+(OpenRouter-only, under the full Security contract; needs dep approval first).
+R4 wire real content into how-i-build + exactly 3
 abstracted case studies (each: what it is, the ontology core applied, status;
 re-identification-checked; definition of done = renders faithfully at all tiers
 with passing sweep). R5 Falsafa, Recognition (EV, MSME, Cobden-Bright,
@@ -189,14 +217,16 @@ popovers + relabel public `[src:]` tags (F3). R7 command palette + graph
 navigator (F4). R8 the tablet and cinema/TV tiers verified and tuned. R9 a CSP
 header (F-Security). R10 deploy (gated on Adnan, target TBD).
 
-Post-v1: R3 BYOK reasoning (opt-in), only under the full Security contract.
-
 ## Success criteria
 
 - Every section renders, faithful to DESIGN.md, verified at desktop, tablet,
   mobile, and cinema tiers in the preview.
-- The live query returns a real cited passage with no key (v1 keyless). Passages
-  render as text; a CSP restricts `connect-src`/`script-src` to `'self'`.
+- The live query returns a real cited passage with no key (default keyless path).
+  With a key, BYOK reasoning streams a grounded answer, and network inspection in
+  the preview confirms NO request to our own origin carries the key or an
+  `Authorization` header. Passages and model output render via the escaped
+  MarkdownView; a CSP restricts `connect-src` to `'self' https://openrouter.ai`
+  and `script-src` to `'self'`.
 - Provenance is reachable by mouse, keyboard, and touch; public `[src:]` labels
   are reader-legible, not internal tool names.
 - `prefers-reduced-motion` disables all entrance and ambient motion.
