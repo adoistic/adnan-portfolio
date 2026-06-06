@@ -62,10 +62,21 @@ Plan and spec are the source of truth. R10 (deploy) is out of autonomous scope.
   (hero → how-i-build → hinge → method-applied → falsafa → recognition → writing →
   about → contact).
 
+- **Task 8 — remaining sections + order** ✅. Added Recognition (EV $20K, MSME 5.0
+  Rs 12.75L, Cobden-Bright, Philosophy Now), Writing + About (Newsreader serif),
+  Contact. Fixed section order to DESIGN.md: hero → how-i-build → hinge →
+  method-applied → falsafa → recognition → writing → about → contact (verified).
+  No em dashes in new copy, no client names, build clean. **Chunk 3 content done.**
+  **Flags for Adnan:** (1) Contact email shipped as `adnan@thothica.com` + github
+  adoistic — confirm the email. (2) The interactive components (live-query.tsx,
+  byok.tsx, safe-text.tsx) contain em dashes in UI strings — flagged for the
+  Task 11/12 polish pass to strip (your no-em-dash rule).
+
 ## Next
 
-- Task 8 (Falsafa framing + Recognition + Writing + About + Contact, and fix the
-  section order). Then Chunk 4 (Tasks 9,10), Chunk 5 (Tasks 11,12).
+- Chunk 4: Task 9 (provenance popovers + relabel [src:] tags), Task 10 (Cmd-K
+  palette + g graph nav). Chunk 5: Task 11 (all responsive tiers + em-dash polish),
+  Task 12 (final review + finalize PROGRESS).
 
 ## Decisions / notes for Adnan
 

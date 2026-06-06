@@ -109,7 +109,7 @@
 - [ ] Step 2: Confidentiality sweep of the rendered text; verify desktop + mobile.
 - [ ] Step 3: Commit.
 
-### Task 8: Falsafa, Recognition, Writing, About, Contact
+### Task 8: Falsafa, Recognition, Writing, About, Contact ✅ DONE
 
 **Files:** Modify `page.tsx`; small section components as needed.
 

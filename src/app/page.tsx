@@ -2,6 +2,9 @@ import { Section } from "@/components/section";
 import { ForceGraph, type GNode, type GLink } from "@/components/force-graph";
 import { LiveQuery } from "@/components/live-query";
 import { CaseStudies } from "@/components/case-studies";
+import { Recognition } from "@/components/recognition";
+import { Writing } from "@/components/writing";
+import { About } from "@/components/about";
 
 const metrics = [
   { n: "5.8", label: "agents at once", src: "paxel" },
@@ -217,6 +220,17 @@ export default function Home() {
         </ul>
       </Section>
 
+      {/* The method, applied: abstracted engagements, public-safe */}
+      <Section label="the method, applied">
+        <p className="font-serif text-base leading-relaxed text-muted">
+          the same method, across very different problems. client names withheld;
+          the work is described by its class and its ontology move.
+        </p>
+        <div className="mt-7">
+          <CaseStudies />
+        </div>
+      </Section>
+
       {/* Falsafa: the method demonstrating itself, live */}
       <Section label="falsafa">
         <p className="font-serif text-base leading-relaxed text-muted">
@@ -228,15 +242,47 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* The method, applied: abstracted engagements, public-safe */}
-      <Section label="the method, applied">
-        <p className="font-serif text-base leading-relaxed text-muted">
-          the same method, across very different problems. client names withheld;
-          the work is described by its class and its ontology move.
-        </p>
-        <div className="mt-7">
-          <CaseStudies />
-        </div>
+      {/* Recognition: external filters passed, as a mono ledger */}
+      <Section label="recognition">
+        <Recognition />
+      </Section>
+
+      {/* Writing: serif prose, understated */}
+      <Section label="writing">
+        <Writing />
+      </Section>
+
+      {/* About: humanities-to-AI path, the Hayek frame */}
+      <Section label="about">
+        <About />
+      </Section>
+
+      {/* Contact */}
+      <Section label="contact">
+        <ul className="space-y-3 font-mono text-sm">
+          <li className="grid grid-cols-1 gap-1 sm:grid-cols-[6rem_1fr] sm:gap-5">
+            <span className="text-xs uppercase tracking-wider text-muted">
+              email
+            </span>
+            <a
+              href="mailto:adnan@thothica.com"
+              className="text-ink underline-offset-4 hover:text-accent hover:underline"
+            >
+              adnan@thothica.com
+            </a>
+          </li>
+          <li className="grid grid-cols-1 gap-1 sm:grid-cols-[6rem_1fr] sm:gap-5">
+            <span className="text-xs uppercase tracking-wider text-muted">
+              github
+            </span>
+            <a
+              href="https://github.com/adoistic"
+              className="text-ink underline-offset-4 hover:text-accent hover:underline"
+            >
+              github.com/adoistic
+            </a>
+          </li>
+        </ul>
       </Section>
     </main>
   );
