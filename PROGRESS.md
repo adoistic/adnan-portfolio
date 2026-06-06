@@ -29,10 +29,15 @@ Plan and spec are the source of truth. R10 (deploy) is out of autonomous scope.
   rendering already close the realistic XSS/exfil surface. Recommend adding
   nonce-based CSP at deploy (R10) when the prod host is known.
 
+- **Task 3 — OpenRouter SSE client** ✅ (`src/lib/openrouter.ts` + test). Dep-free
+  async generator: POSTs to openrouter.ai with Bearer key + Referer/Title,
+  streams SSE, yields text/tool_call/done/error, never parses `[DONE]`, never
+  throws, never logs the key. 2/2 node --test pass, build clean.
+
 ## Next
 
-- Chunk 2 continued: Task 3 (dep-free OpenRouter SSE client) then Task 5 (BYOK
-  panel + tool loop + safe-text + key store), then content (Chunk 3).
+- Task 5 (BYOK panel + tool loop + `safe-text.tsx` + `key-store.ts`), then content
+  (Chunk 3: Tasks 6,7,8), Chunk 4 (9,10), Chunk 5 (11,12).
 
 ## Decisions / notes for Adnan
 

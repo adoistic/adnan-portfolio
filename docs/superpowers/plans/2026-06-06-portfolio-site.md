@@ -54,7 +54,7 @@
 
 > Faithful to Falsafa's behavior (read its island), but hand-rolled with `fetch` so no new dependency is needed. The OpenRouter request is browser→`https://openrouter.ai/api/v1/chat/completions` ONLY. Follow the spec Security section exactly.
 
-### Task 3: OpenRouter streaming client (browser, dep-free)
+### Task 3: OpenRouter streaming client (browser, dep-free) ✅ DONE
 
 **Files:**
 - Create: `src/lib/openrouter.ts` (client-only; an async generator that streams text)
