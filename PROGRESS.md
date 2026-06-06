@@ -1,117 +1,62 @@
 # Build progress — portfolio site v1
 
-Autonomous build against `docs/superpowers/plans/2026-06-06-portfolio-site.md`.
-Plan and spec are the source of truth. R10 (deploy) is out of autonomous scope.
+**Status: v1 build COMPLETE.** All 12 plan tasks shipped to
+github.com/adoistic/adnan-portfolio (`main`). Build clean, 15/15 unit tests pass,
+no console errors at desktop or mobile, confidentiality sweep clean. The only
+thing left is deploy, which is yours (see open items).
 
-## Done
+Plan: `docs/superpowers/plans/2026-06-06-portfolio-site.md`.
+Design system: `DESIGN.md`. Spec: `docs/superpowers/specs/2026-06-06-portfolio-site-design.md`.
 
-- **Baseline** (pre-loop): scaffold, tokens/theme, `Section` ledger primitive,
-  hero (downplayed line + amber metrics + hinge), how-i-build skeleton,
-  interactive force-graph hero, keyless librarian (corpus + TF-IDF + `search()`).
-- **Task 1 — `/api/query` keyless route** ✅. POST, validates 1..200 chars,
-  k fixed at 3 server-side, 400 on empty/too-long/malformed JSON, runtime nodejs,
-  corpus stays server-only. Verified via curl ("freedom of thought" → Fichte;
-  empty/long/malformed → 400). Build clean.
-- **Task 2 — live terminal UI** ✅ (`src/components/live-query.tsx`, mounted in a
-  new `falsafa` section). Keyless: type a query → real cited passages render
-  (text-only, no dangerouslySetInnerHTML); loading/empty/error states; aria-live;
-  keyboard. Verified in preview ("the duty of a king" → Comte's Traité, 3
-  citations). Build clean, no console errors.
+## What shipped
 
-- **Task 4 — CSP + security headers** ✅ (`next.config.ts`). `Content-Security-Policy`
-  with `connect-src 'self' https://openrouter.ai` (the load-bearing BYOK control:
-  nothing can be exfiltrated to a third party), plus `frame-ancestors/object-src
-  'none'`, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`.
-  Verified: header live, page renders, fonts load, query works, no console/CSP
-  errors. **Decision for Adnan:** `script-src` keeps `'unsafe-inline'` (Next
-  injects inline hydration scripts; strict `script-src 'self'` needs nonce
-  middleware that's fragile under turbopack dev). connect-src + text-only
-  rendering already close the realistic XSS/exfil surface. Recommend adding
-  nonce-based CSP at deploy (R10) when the prod host is known.
+- **Foundation** — Next.js 16 / React 19 / Tailwind v4, dark "logbook" tokens,
+  Geist Mono / Geist / Newsreader, the ledger-margin `Section` primitive.
+- **Hero** — restraint-as-flex: name, one downplayed line, amber evidence metrics
+  with self-citation, the interactive force-directed knowledge graph (static
+  constellation + tap on mobile).
+- **How I build** — the 13-principle methodology spine, real evidence per line.
+- **The method, applied** — 3 abstracted case studies (no client names).
+- **Falsafa live query** — keyless TF-IDF librarian over a bundled corpus subset
+  via `/api/query`; type a question, get a real cited passage, no key, no
+  hallucination.
+- **BYOK reasoning** — optional, dependency-free, OpenRouter-only. The visitor's
+  key rides only browser→openrouter.ai (verified: never to our origin; `/api/query`
+  stays keyless; no key logging). Answers render text-only (inert).
+- **Recognition / Writing / About / Contact** — public facts; serif in Writing/About.
+- **Self-citation provenance** — accessible popovers (hover, keyboard, tap).
+- **Command palette** — Cmd-K / "/" + "g" graph navigator, focus-trapped.
+- **No-compromise responsive** — verified 320 / 768 / 1440 / 2560 (zero horizontal
+  overflow at 320, ledger rail at tablet, reading measure capped at 2560).
+- **Security** — CSP (`connect-src 'self' https://openrouter.ai`), text-only
+  rendering, no-key-logging; a final review confirmed the BYOK boundary and a11y.
 
-- **Task 3 — OpenRouter SSE client** ✅ (`src/lib/openrouter.ts` + test). Dep-free
-  async generator: POSTs to openrouter.ai with Bearer key + Referer/Title,
-  streams SSE, yields text/tool_call/done/error, never parses `[DONE]`, never
-  throws, never logs the key. 2/2 node --test pass, build clean.
+## OPEN ITEMS FOR ADNAN (only these are left)
 
-- **Task 5 — BYOK reasoning (dep-free)** ✅. `key-store.ts` (localStorage,
-  SSR-safe), `safe-text.tsx` + pure `safe-text-model.ts` (text-nodes-only, inert:
-  `<script>`/`javascript:` render as literal text), `byok.tsx` (password key +
-  forget, model select, question, capped-10 tool loop calling keyless `/api/query`,
-  streams via openrouter.ts, failure-path banner, abort). Opt-in toggle in
-  live-query.tsx. **Security VERIFIED:** the key is passed only to
-  `streamOpenRouter` (code line 164); the only origin fetch is keyless `/api/query`
-  (live fetch-spy test: that request carried no key / no Authorization); no key
-  logging. 15/15 tests pass, build clean, no console errors.
-  **Note for Adnan:** the live OpenRouter streaming UX was not exercised against a
-  real key (none available; I won't use yours). It's unit-tested + code-verified;
-  do one real "ask" with your OpenRouter key to confirm the answer streams nicely.
+1. **Confirm the public contact email.** Shipped as `adnan@thothica.com` +
+   `github.com/adoistic`. Change if you want a different address public.
+2. **Deploy (the only remaining step).** Build is deploy-ready. It has a server
+   route (`/api/query`), so it needs a Node/serverless runtime, NOT static export.
+   Cloudflare Pages (with the Next-on-Pages/Workers adapter) or Vercel (zero-config)
+   both work. Pick one and I'll wire the deploy.
+3. **Do one real BYOK "ask" with your own OpenRouter key.** The streaming path is
+   unit-tested and security-verified but never run against a live key (I won't use
+   yours). One real query confirms the answer streams nicely.
+4. **CSP hardening (optional).** `script-src` keeps `'unsafe-inline'` because Next
+   injects inline hydration scripts; a nonce-based CSP via middleware is the
+   stricter option, best added at deploy when the host is known.
 
-- **Task 6 — how-i-build content** ✅. Replaced the 3-entry skeleton with all 13
-  Part-1 principles (spec-first, the swarm, parallelism, outside voice, data
-  ontology, ground truth, verify, benchmark, reverse, codify, memory, velocity,
-  decompose), evidence numbers verbatim from content/methodology.md, ledger layout
-  intact, no em dashes, no client names. Verified (13 entries render), build clean.
+## Notes / minor
 
-- **Task 7 — 3 abstracted case studies** ✅ (`src/components/case-studies.tsx`).
-  An agent-callable archive, a source-cited content pipeline, a regulatory-
-  intelligence product. Each: generic title, what it is, the ontology core move,
-  status. Re-identification check passed (sector+geo+size stripped for all three);
-  zero client names in rendered text (verified). Build clean. NOTE: currently
-  mounted after Falsafa; Task 8 must fix the full section order to match DESIGN.md
-  (hero → how-i-build → hinge → method-applied → falsafa → recognition → writing →
-  about → contact).
-
-- **Task 8 — remaining sections + order** ✅. Added Recognition (EV $20K, MSME 5.0
-  Rs 12.75L, Cobden-Bright, Philosophy Now), Writing + About (Newsreader serif),
-  Contact. Fixed section order to DESIGN.md: hero → how-i-build → hinge →
-  method-applied → falsafa → recognition → writing → about → contact (verified).
-  No em dashes in new copy, no client names, build clean. **Chunk 3 content done.**
-  **Flags for Adnan:** (1) Contact email shipped as `adnan@thothica.com` + github
-  adoistic — confirm the email. (2) The interactive components (live-query.tsx,
-  byok.tsx, safe-text.tsx) contain em dashes in UI strings — flagged for the
-  Task 11/12 polish pass to strip (your no-em-dash rule).
-
-- **Task 9 — provenance popovers** ✅ (`src/components/provenance.tsx`). Accessible
-  self-citation popover on the hero metrics: works via hover, keyboard focus
-  (aria-expanded, Escape), and tap; text-only. Tags relabeled `[src: local session
-  analysis]` / `[src: git history]`; internal "paxel" not shipped; no client
-  identifiers. Reduced-motion safe. Verified, build clean. (Preview serverId is now
-  12ca33ea — use preview_list each iteration.)
-
-- **Task 10 — command palette + graph nav** ✅ (`src/components/command-palette.tsx`,
-  mounted in layout). Cmd-K / Ctrl-K / "/" open a centered palette of the 7 sections
-  + "open the graph"; arrow nav, Enter scrolls (instant under reduced-motion), Esc
-  closes + restores focus, focus-trapped; "g" = graph navigator. Section/graph ids
-  added; understated Cmd-K hint chip. Verified (palette opens with 8 options),
-  build clean. **Chunk 4 done.**
-
-- **Task 11 — responsive sweep + em-dash polish** ✅. Verified tiers 320/768/2560:
-  320 zero horizontal overflow at rest AND with a provenance popover open (fixed a
-  real bug: provenance popovers were always-rendered + left-anchored, overflowing
-  from the right-column metrics; now render only when open, right-aligned, capped
-  to viewport, + `overflow-x-clip` on main); metrics 2-up below sm, one row above;
-  ledger side rail at md+; 2560 reading measure capped (content 1152px, no
-  full-bleed). Stripped em dashes from the two user-facing citation lines
-  (live-query, byok); remaining em dashes are code comments + the quoted MIT corpus
-  (not Adnan's prose). Build clean.
-
-## Next
-
-- Task 12 (final whole-site review subagent + finalize PROGRESS, then STOP the
-  loop and post the morning summary).
-
-## Decisions / notes for Adnan
-
-- **Off-limits sweep is DEGRADED:** `~/Adnan/methodology/.offlimits-identifiers`
-  is only the header stub (you never populated real identifiers). The sweep
-  therefore relies on the known-client grep + the fact that authored surfaces are
-  small and reviewed. Populate that file if you want a real automated off-limits
-  gate.
-- **Sweep hygiene:** the bundled `src/data/falsafa-corpus.json` is public MIT text
-  and triggers false positives (e.g. "samaya" matches a `samaj` substring), so the
-  sweep excludes it and uses specific identifiers.
-- **Keyless route abuse control (v1):** the 200-char cap + fixed k=3 are the only
-  guards; no rate limiter unless the deploy host makes it trivial.
-- BYOK is being built dependency-free (no npm installs) per your "work
-  autonomously" + the plan.
+- A confidentiality fix landed during the final review: the internal analysis-tool
+  name had leaked into the bundled CSS (Tailwind v4 was scanning `docs/`) and into
+  a few committed docs. Scrubbed from all tracked files, and Tailwind scanning is
+  now scoped to `src/`. Verified: that name is in no tracked file and no built
+  asset. (It does remain in earlier commit *history*; it is only a tool name, not a
+  client or stealth identifier, so a history rewrite is optional, your call.)
+- `src/lib/key-store.test.ts` uses a top-level `await import`, which runs fine under
+  `node --test` (our standard) but would fail under `tsx`. If you wire CI, use
+  `node --test`.
+- Off-limits automated gate is degraded: `~/Adnan/methodology/.offlimits-identifiers`
+  is still a stub. Human review + the known-client grep covered it; populate that
+  file for a real automated gate.

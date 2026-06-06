@@ -79,4 +79,4 @@ The company. It builds AI-native systems that help organizations structure, conn
 - Parallelism: about 5.8 agents open at once on average, 38 at peak, two or more active 52% of the time.
 - Decision profile (1,842 classified): 48% course-corrections, 26% product insight, 17% catching the agent's bug or wrong assumption, 9% choosing among presented options. The heaviest subject clusters are data modeling and corpus integrity, pipeline architecture, and scope sequencing.
 
-Source data lives locally under `Adnan/paxel-analysis/`. Telemetry figures are recorded in the 2026-06-06 update of `adnan-work-profile.md`.
+These figures come from a local analysis of my own coding sessions and git history.

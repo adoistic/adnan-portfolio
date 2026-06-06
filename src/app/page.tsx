@@ -211,13 +211,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Hinge */}
-      <div className="mx-auto w-full max-w-6xl px-5 py-8 md:px-8">
-        <p className="font-mono text-sm text-muted">
-          <span className="text-accent">// </span>the method is the product.
-        </p>
-      </div>
-
       {/* How I build: the spine, from content/methodology.md Part 1 */}
       <Section id="how-i-build" label="how i build">
         <ul className="space-y-7">
@@ -234,6 +227,13 @@ export default function Home() {
           ))}
         </ul>
       </Section>
+
+      {/* Hinge */}
+      <div className="mx-auto w-full max-w-6xl px-5 py-8 md:px-8">
+        <p className="font-mono text-sm text-muted">
+          <span className="text-accent">// </span>the method is the product.
+        </p>
+      </div>
 
       {/* The method, applied: abstracted engagements, public-safe */}
       <Section id="method-applied" label="the method, applied">

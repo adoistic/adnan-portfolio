@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Scope Tailwind's class scanning to the app source only. Without this,
+   v4 auto-scans the whole repo (docs/, content/, *.md) and can bake
+   arbitrary-property selectors from literal tokens in prose into the public
+   CSS bundle. Restrict to src/ so only real component classes ship. */
+@source "../**/*.{ts,tsx}";
+@source not "../../docs";
+@source not "../../content";
+@source not "../../PROGRESS.md";
+
 /* Design tokens — see DESIGN.md. Dark-first identity. */
 @theme {
   --color-bg: #0b0d10;

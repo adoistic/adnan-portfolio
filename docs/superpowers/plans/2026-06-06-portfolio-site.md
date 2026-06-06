@@ -91,7 +91,7 @@
 
 ## Chunk 3: Real content — R4, R5
 
-> Source: `content/methodology.md` (public draft) + public facts from the spec. Abstract all client work. Run the confidentiality sweep before committing. Relabel `[src:paxel]`→"local session analysis", `[src:git]`→"git history" while here.
+> Source: `content/methodology.md` (public draft) + public facts from the spec. Abstract all client work. Run the confidentiality sweep before committing. Relabel the internal-tool `[src:]` tag to "local session analysis" and `[src:git]` to "git history" while here.
 
 ### Task 6: Wire "how I build" from content ✅ DONE
 
@@ -149,7 +149,7 @@
 - [ ] Step 2: Reduced-motion: confirm all entrance/ambient motion off under the preference.
 - [ ] Step 3: Commit.
 
-### Task 12: Final verification + handoff
+### Task 12: Final verification + handoff ✅ DONE
 
 - [ ] Step 1: `npm run build` clean; no console errors at any tier; full confidentiality sweep of the repo (grep for client + off-limits identifiers) returns clean.
 - [ ] Step 2: Dispatch a final whole-site review subagent (correctness, a11y, DESIGN.md fidelity, security trust boundary, confidentiality). Fix blockers.

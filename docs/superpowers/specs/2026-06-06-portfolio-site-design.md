@@ -109,9 +109,9 @@ Ships in v1. Ported from Falsafa's proven, tested BYOK island
 Inline `[src:]`-style provenance on metrics and claims. Hover, keyboard focus,
 and tap all reveal the source via a small accessible popover (text only, not a
 tooltip soup). Public `[src:]` labels must be human-meaningful, not internal
-tool names: the current hero uses `[src:paxel]` (a local session-log analysis)
-and `[src:git]`; relabel to reader-legible terms like "local session analysis"
-and "git history" during content wiring. For case studies the popover shows the
+tool names: an early hero used an internal-tool tag and a `[src:git]` tag;
+relabel both to reader-legible terms like "local session analysis" and "git
+history" during content wiring. For case studies the popover shows the
 abstracted basis only. No real client identifier is ever shown publicly.
 
 ### F4. Command palette
