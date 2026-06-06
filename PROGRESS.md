@@ -18,9 +18,21 @@ Plan and spec are the source of truth. R10 (deploy) is out of autonomous scope.
   keyboard. Verified in preview ("the duty of a king" → Comte's Traité, 3
   citations). Build clean, no console errors.
 
+- **Task 4 — CSP + security headers** ✅ (`next.config.ts`). `Content-Security-Policy`
+  with `connect-src 'self' https://openrouter.ai` (the load-bearing BYOK control:
+  nothing can be exfiltrated to a third party), plus `frame-ancestors/object-src
+  'none'`, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`.
+  Verified: header live, page renders, fonts load, query works, no console/CSP
+  errors. **Decision for Adnan:** `script-src` keeps `'unsafe-inline'` (Next
+  injects inline hydration scripts; strict `script-src 'self'` needs nonce
+  middleware that's fragile under turbopack dev). connect-src + text-only
+  rendering already close the realistic XSS/exfil surface. Recommend adding
+  nonce-based CSP at deploy (R10) when the prod host is known.
+
 ## Next
 
-- Chunk 2: Task 4 (CSP header) then Task 5 (dep-free BYOK), then content (Chunk 3).
+- Chunk 2 continued: Task 3 (dep-free OpenRouter SSE client) then Task 5 (BYOK
+  panel + tool loop + safe-text + key store), then content (Chunk 3).
 
 ## Decisions / notes for Adnan
 

@@ -66,7 +66,7 @@
 - [ ] Step 4: Confirm pass.
 - [ ] Step 5: Commit.
 
-### Task 4: CSP header (BEFORE BYOK, so BYOK is verified under it)
+### Task 4: CSP header (BEFORE BYOK, so BYOK is verified under it) ✅ DONE
 
 **Files:** Create/modify `next.config.ts` (headers()).
 
