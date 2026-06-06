@@ -1,4 +1,5 @@
 import { Section } from "@/components/section";
+import { ForceGraph, type GNode, type GLink } from "@/components/force-graph";
 
 const metrics = [
   { n: "5.8", label: "agents at once", src: "paxel" },
@@ -25,8 +26,40 @@ const log = [
   },
 ];
 
-function GraphPlaceholder() {
-  // Static constellation standing in for the interactive force-directed graph.
+// Public-safe ontology for the hero graph (thinkers, concepts, projects).
+const graphNodes: GNode[] = [
+  { id: "hayek", label: "Hayek" },
+  { id: "mises", label: "Mises" },
+  { id: "smith", label: "Smith" },
+  { id: "ghazali", label: "Al-Ghazali" },
+  { id: "malebranche", label: "Malebranche" },
+  { id: "order", label: "spontaneous order" },
+  { id: "knowledge", label: "dispersed knowledge", kind: "metric" },
+  { id: "ontology", label: "ontology", kind: "metric" },
+  { id: "provenance", label: "provenance" },
+  { id: "mcp", label: "MCP" },
+  { id: "spec", label: "spec" },
+  { id: "agent", label: "agent" },
+  { id: "corpus", label: "corpus" },
+  { id: "citation", label: "citation" },
+  { id: "falsafa", label: "Falsafa", kind: "accent" },
+  { id: "thothica", label: "Thothica", kind: "accent" },
+];
+
+const graphLinks: GLink[] = [
+  { s: "hayek", t: "order" }, { s: "mises", t: "order" }, { s: "smith", t: "order" },
+  { s: "order", t: "knowledge" }, { s: "hayek", t: "knowledge" },
+  { s: "knowledge", t: "ontology" }, { s: "ontology", t: "provenance" },
+  { s: "ontology", t: "mcp" }, { s: "ontology", t: "corpus" },
+  { s: "corpus", t: "citation" }, { s: "provenance", t: "citation" },
+  { s: "spec", t: "agent" }, { s: "agent", t: "ontology" }, { s: "spec", t: "ontology" },
+  { s: "falsafa", t: "mcp" }, { s: "falsafa", t: "corpus" }, { s: "falsafa", t: "ghazali" },
+  { s: "ghazali", t: "malebranche" }, { s: "falsafa", t: "citation" },
+  { s: "thothica", t: "ontology" }, { s: "thothica", t: "falsafa" }, { s: "thothica", t: "agent" },
+];
+
+// Calm static constellation for the mobile tier (no squished force graph).
+function StaticConstellation() {
   const nodes = [
     [60, 40], [140, 28], [220, 70], [300, 40], [360, 110],
     [40, 130], [120, 110], [200, 150], [285, 150], [340, 200],
@@ -40,29 +73,31 @@ function GraphPlaceholder() {
   const accent = new Set([7, 3]);
   const metric = new Set([11, 9]);
   return (
+    <svg viewBox="0 0 400 320" className="w-full" role="img" aria-label="ontology graph preview">
+      {links.map(([a, b], i) => (
+        <line key={i} x1={nodes[a][0]} y1={nodes[a][1]} x2={nodes[b][0]} y2={nodes[b][1]} stroke="#1d222b" strokeWidth="1" />
+      ))}
+      {nodes.map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r={accent.has(i) || metric.has(i) ? 4.5 : 3}
+          fill={accent.has(i) ? "#7fae93" : metric.has(i) ? "#d8a657" : "#3a4250"} />
+      ))}
+    </svg>
+  );
+}
+
+function GraphCard() {
+  return (
     <div className="rounded-md border border-line bg-surface/40 p-4">
       <div className="mb-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-muted">
         <span>knowledge graph</span>
         <span className="text-line">[g] to explore</span>
       </div>
-      <svg viewBox="0 0 400 320" className="w-full" role="img" aria-label="ontology graph preview">
-        {links.map(([a, b], i) => (
-          <line
-            key={i}
-            x1={nodes[a][0]} y1={nodes[a][1]}
-            x2={nodes[b][0]} y2={nodes[b][1]}
-            stroke="#1d222b" strokeWidth="1"
-          />
-        ))}
-        {nodes.map(([x, y], i) => (
-          <circle
-            key={i}
-            cx={x} cy={y}
-            r={accent.has(i) || metric.has(i) ? 4.5 : 3}
-            fill={accent.has(i) ? "#7fae93" : metric.has(i) ? "#d8a657" : "#3a4250"}
-          />
-        ))}
-      </svg>
+      <div className="hidden lg:block">
+        <ForceGraph nodes={graphNodes} links={graphLinks} />
+      </div>
+      <div className="lg:hidden">
+        <StaticConstellation />
+      </div>
     </div>
   );
 }
@@ -101,7 +136,7 @@ export default function Home() {
           </div>
 
           <div className="rise">
-            <GraphPlaceholder />
+            <GraphCard />
           </div>
         </div>
       </section>
