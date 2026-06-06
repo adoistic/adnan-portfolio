@@ -443,7 +443,7 @@ export function Byok() {
                     <SafeText text={hit.text} />
                   </p>
                   <p className="mt-2 font-mono text-[11px] leading-relaxed text-muted">
-                    — {hit.author}, {hit.workTitle} · {hit.chapterTitle}{" "}
+                    {hit.author}, {hit.workTitle} · {hit.chapterTitle}{" "}
                     <span className="text-line">[src:{hit.id}]</span>
                   </p>
                 </li>

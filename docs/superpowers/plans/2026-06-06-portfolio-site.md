@@ -141,7 +141,7 @@
 
 ## Chunk 5: Responsive tiers + final pass — R8, R9
 
-### Task 11: Tablet, laptop, cinema/TV tiers
+### Task 11: Tablet, laptop, cinema/TV tiers ✅ DONE
 
 **Files:** touch components/CSS as needed.
 

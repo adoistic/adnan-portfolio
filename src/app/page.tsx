@@ -174,7 +174,7 @@ function GraphCard() {
 
 export default function Home() {
   return (
-    <main className="min-h-dvh">
+    <main className="min-h-dvh overflow-x-clip">
       {/* Hero */}
       <section className="mx-auto w-full max-w-6xl px-5 pt-16 pb-12 md:px-8 md:pt-28">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_minmax(0,30rem)] lg:gap-16">

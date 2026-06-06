@@ -86,10 +86,20 @@ Plan and spec are the source of truth. R10 (deploy) is out of autonomous scope.
   added; understated Cmd-K hint chip. Verified (palette opens with 8 options),
   build clean. **Chunk 4 done.**
 
+- **Task 11 — responsive sweep + em-dash polish** ✅. Verified tiers 320/768/2560:
+  320 zero horizontal overflow at rest AND with a provenance popover open (fixed a
+  real bug: provenance popovers were always-rendered + left-anchored, overflowing
+  from the right-column metrics; now render only when open, right-aligned, capped
+  to viewport, + `overflow-x-clip` on main); metrics 2-up below sm, one row above;
+  ledger side rail at md+; 2560 reading measure capped (content 1152px, no
+  full-bleed). Stripped em dashes from the two user-facing citation lines
+  (live-query, byok); remaining em dashes are code comments + the quoted MIT corpus
+  (not Adnan's prose). Build clean.
+
 ## Next
 
-- Chunk 5: Task 11 (verify/tune ALL responsive tiers + strip em dashes from
-  interactive UI strings), Task 12 (final whole-site review + finalize, then STOP).
+- Task 12 (final whole-site review subagent + finalize PROGRESS, then STOP the
+  loop and post the morning summary).
 
 ## Decisions / notes for Adnan
 

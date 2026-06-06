@@ -53,15 +53,15 @@ export function Provenance({
         {" "}
         [src: {label}]
       </button>
-      <span
-        id={panelId}
-        role="tooltip"
-        aria-hidden={!open}
-        style={{ opacity: open ? 1 : 0 }}
-        className="pointer-events-none absolute left-0 top-full z-10 mt-1.5 block w-56 rounded-md border border-line bg-surface p-2.5 font-mono text-[11px] normal-case leading-snug tracking-normal text-muted shadow-lg transition-opacity duration-150 ease-out motion-reduce:transition-none"
-      >
-        {source}
-      </span>
+      {open && (
+        <span
+          id={panelId}
+          role="tooltip"
+          className="pointer-events-none absolute right-0 top-full z-10 mt-1.5 block w-56 max-w-[calc(100vw-1.5rem)] rounded-md border border-line bg-surface p-2.5 font-mono text-[11px] normal-case leading-snug tracking-normal text-muted shadow-lg"
+        >
+          {source}
+        </span>
+      )}
     </span>
   );
 }
