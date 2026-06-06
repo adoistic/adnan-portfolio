@@ -152,7 +152,12 @@ function StaticConstellation() {
 
 function GraphCard() {
   return (
-    <div className="rounded-md border border-line bg-surface/40 p-4">
+    <div
+      id="graph"
+      tabIndex={-1}
+      aria-label="knowledge graph"
+      className="scroll-mt-20 rounded-md border border-line bg-surface/40 p-4 outline-none focus-visible:ring-1 focus-visible:ring-accent"
+    >
       <div className="mb-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-muted">
         <span>knowledge graph</span>
         <span className="text-line">[g] to explore</span>
@@ -214,7 +219,7 @@ export default function Home() {
       </div>
 
       {/* How I build: the spine, from content/methodology.md Part 1 */}
-      <Section label="how i build">
+      <Section id="how-i-build" label="how i build">
         <ul className="space-y-7">
           {log.map((e) => (
             <li key={e.t} className="grid grid-cols-1 gap-1.5 sm:grid-cols-[8rem_1fr] sm:gap-5">
@@ -231,7 +236,7 @@ export default function Home() {
       </Section>
 
       {/* The method, applied: abstracted engagements, public-safe */}
-      <Section label="the method, applied">
+      <Section id="method-applied" label="the method, applied">
         <p className="font-serif text-base leading-relaxed text-muted">
           the same method, across very different problems. client names withheld;
           the work is described by its class and its ontology move.
@@ -242,7 +247,7 @@ export default function Home() {
       </Section>
 
       {/* Falsafa: the method demonstrating itself, live */}
-      <Section label="falsafa">
+      <Section id="falsafa" label="falsafa">
         <p className="font-serif text-base leading-relaxed text-muted">
           a real query against a corpus of world philosophy. the librarian
           retrieves and cites; no model, no key, no hallucination.
@@ -253,22 +258,22 @@ export default function Home() {
       </Section>
 
       {/* Recognition: external filters passed, as a mono ledger */}
-      <Section label="recognition">
+      <Section id="recognition" label="recognition">
         <Recognition />
       </Section>
 
       {/* Writing: serif prose, understated */}
-      <Section label="writing">
+      <Section id="writing" label="writing">
         <Writing />
       </Section>
 
       {/* About: humanities-to-AI path, the Hayek frame */}
-      <Section label="about">
+      <Section id="about" label="about">
         <About />
       </Section>
 
       {/* Contact */}
-      <Section label="contact">
+      <Section id="contact" label="contact">
         <ul className="space-y-3 font-mono text-sm">
           <li className="grid grid-cols-1 gap-1 sm:grid-cols-[6rem_1fr] sm:gap-5">
             <span className="text-xs uppercase tracking-wider text-muted">

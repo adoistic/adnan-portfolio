@@ -129,7 +129,7 @@
 - [ ] Step 2: Verify mouse + keyboard + touch (resize to mobile, tap) in preview.
 - [ ] Step 3: Commit.
 
-### Task 10: Command palette + graph navigator
+### Task 10: Command palette + graph navigator ✅ DONE
 
 **Files:** Create `src/components/command-palette.tsx` (client, dep-free); wire `g` to focus the graph.
 

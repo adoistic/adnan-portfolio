@@ -79,11 +79,17 @@ Plan and spec are the source of truth. R10 (deploy) is out of autonomous scope.
   identifiers. Reduced-motion safe. Verified, build clean. (Preview serverId is now
   12ca33ea — use preview_list each iteration.)
 
+- **Task 10 — command palette + graph nav** ✅ (`src/components/command-palette.tsx`,
+  mounted in layout). Cmd-K / Ctrl-K / "/" open a centered palette of the 7 sections
+  + "open the graph"; arrow nav, Enter scrolls (instant under reduced-motion), Esc
+  closes + restores focus, focus-trapped; "g" = graph navigator. Section/graph ids
+  added; understated Cmd-K hint chip. Verified (palette opens with 8 options),
+  build clean. **Chunk 4 done.**
+
 ## Next
 
-- Task 10 (dep-free Cmd-K command palette + g graph nav). Chunk 5: Task 11 (all
-  responsive tiers + strip em dashes from interactive components), Task 12 (final
-  review + finalize PROGRESS).
+- Chunk 5: Task 11 (verify/tune ALL responsive tiers + strip em dashes from
+  interactive UI strings), Task 12 (final whole-site review + finalize, then STOP).
 
 ## Decisions / notes for Adnan
 
